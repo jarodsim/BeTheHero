@@ -1,3 +1,7 @@
+/**
+ * Controller Section
+ * list
+ */
 const connection = require('../database/connection')
 
 module.exports = {

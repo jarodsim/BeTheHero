@@ -1,7 +1,7 @@
 /**
- * Responsável pelo peril de uma ONG
- * vai retornar os dados espessíficos de uma única ONG
- *   */
+ * Buscar os incidents da ONG correspondente
+ * list
+ */
 
 const connection = require('../database/connection')
 

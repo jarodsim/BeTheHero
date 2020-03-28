@@ -1,6 +1,13 @@
+/**
+ * Controller Incident
+ * list, create, delete
+ */
+
 const connection = require('../database/connection')
 
 module.exports = {
+
+    //Listar
     async index(req, res) {
         //Paginação
         const {
@@ -23,16 +30,19 @@ module.exports = {
 
         return res.json(incidents)
     },
+
+    //Criar
     async create(req, res) {
         const {
             title,
             description,
             value
         } = req.body
-        //PEgando o ID da ONG que estiver logada através do cabeçalho da requisição
+
+        //Pegando Id da ONG responssável pelo incidente
         const ong_id = req.headers.authorization
 
-        //retornara uma array com o ID
+        //O número da posição do incident será seu ID
         const [id] = await connection('incidents').insert({
             title,
             description,
@@ -43,6 +53,8 @@ module.exports = {
             id
         })
     },
+
+    //Deletar
     async delete(req, res) {
         //Pegando o ID pelo parametro de rota
         const {

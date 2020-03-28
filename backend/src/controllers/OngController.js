@@ -1,20 +1,21 @@
 /**
- * ficará os arquivos da lógica de funcionamento das rotas
+ * Controller Ong
+ * create, list, delete
  */
 
-//Importando arquivo de conexão ao banco de dados
 const connection = require('../database/connection')
-//Pacote para cria o ID (Primary Key)
 const generateUniqueID = require('../utils/generateUniqueID')
 
 module.exports = {
+
     //Listar
     async index(req, res) {
         const ongs = await connection('ongs').select('*')
 
         return res.json(ongs)
     },
-    //Adicionar
+
+    //Criar
     async create(req, res) {
         const {
             name,
@@ -24,7 +25,7 @@ module.exports = {
             uf
         } = req.body
 
-        const id = generateUniqueID()
+        const id = await generateUniqueID()
 
         await connection('ongs').insert({
             id,
@@ -35,9 +36,19 @@ module.exports = {
             uf
         })
 
-        //Quando terminar de cadastrar, retornará o ID
         return res.json({
             id
         })
+    },
+
+    //Deletar
+    async delete(req, res) {
+        //Pegando ID da ONG
+        const id = req.headers.authorization
+
+        //Deletando do banco
+        await connection('ongs').where('id', id).delete()
+
+        return res.status(204).send()
     }
 }

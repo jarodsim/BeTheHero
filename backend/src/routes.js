@@ -77,6 +77,13 @@ routes.get('/profile', celebrate({
 }), ProfileController.index)
 
 
+//Rota Delete para deletar a ONG
+routes.delete('/profile', celebrate({
+    [Segments.HEADERS]: Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+}), OngController.delete)
+
 
 
 module.exports = routes
