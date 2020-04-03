@@ -15,6 +15,8 @@ export default function Register() {
     setName] = useState('')
   const [email,
     setEmail] = useState('')
+  const [password,
+    setPassword] = useState('')
   const [whatsapp,
     setWhatsapp] = useState('')
   const [city,
@@ -31,6 +33,7 @@ export default function Register() {
     const data = {
       name,
       email,
+      password,
       whatsapp,
       city,
       uf
@@ -39,7 +42,9 @@ export default function Register() {
       //Enviando os dados para a api e retornando o id de sucesso
       const response = await api.post('ongs', data)
 
-      alert(`Seu ID de acesso: ${response.data.id}`)
+      if(response.data.id !== ''){
+        alert('Sucesso! Conta criada com sucesso!')
+      }
 
       //Voltando o user para a página de  login
       history.push('/')
@@ -77,6 +82,12 @@ export default function Register() {
             value={email}
             onChange={e => setEmail(e.target.value)}
             required/>
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required/>  
           <input
             placeholder="Whatsapp"
             value={whatsapp}

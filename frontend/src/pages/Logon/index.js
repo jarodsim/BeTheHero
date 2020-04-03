@@ -11,8 +11,8 @@ import logoImg from '../../assets/logo.svg'
 import {FiLogIn} from 'react-icons/fi'
 
 export default function Logon() {
-  const [id,
-    setId] = useState('')
+ const [email, setEmail] = useState('')
+ const [password, setPassword] = useState('')
 
   const history = useHistory()
 
@@ -21,11 +21,11 @@ export default function Logon() {
     e.preventDefault()
 
     try {
-      const response = await api.post('sessions', {id})
-
-      //Precisa ter disponível em toa a aplicação
-      localStorage.setItem('ongId', id)
+      const response = await api.post('sessions', {email, password})
+      //Deixando no localstorage para ficar disponivel para toda a aplocação
+      localStorage.setItem('ongId', response.data.id)
       localStorage.setItem('ongName', response.data.name)
+      localStorage.setItem('ongEmail', email)
 
       history.push('/profile')
     } catch (error) {
@@ -41,7 +41,8 @@ export default function Logon() {
         <form onSubmit={handleLogin}>
           <h1>Faça seu logon</h1>
 
-          <input placeholder="Sua ID" value={id} onChange={e => setId(e.target.value)}/>
+          <input placeholder="Seu e-mail" value={email} onChange={e => setEmail(e.target.value)}/>
+          <input placeholder="Sua senha" value={password} onChange={e => setPassword(e.target.value)}/>
 
           <button type="submit" className="button">Entrar</button>
 

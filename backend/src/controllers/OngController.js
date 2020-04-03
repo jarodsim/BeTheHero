@@ -20,6 +20,7 @@ module.exports = {
         const {
             name,
             email,
+            password,
             whatsapp,
             city,
             uf
@@ -31,6 +32,7 @@ module.exports = {
             id,
             name,
             email,
+            password,
             whatsapp,
             city,
             uf

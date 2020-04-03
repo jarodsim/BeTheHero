@@ -19,7 +19,8 @@ const routes = express.Router()
 //Rota Post para criar sessão - efetuar logon
 routes.post('/sessions', celebrate({
     [Segments.BODY]: Joi.object().keys({
-        id: Joi.required(),
+        email: Joi.string().required(),
+        password: Joi.string().required(),
     })
 }), SectionController.create)
 
@@ -33,6 +34,7 @@ routes.post('/ongs', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
         email: Joi.string().required().email(),
+        password: Joi.string().required().min(6).max(16),
         whatsapp: Joi.string().required().min(10).max(11),
         city: Joi.string().required(),
         uf: Joi.string().required().length(2)
@@ -57,7 +59,7 @@ routes.post('/incidents', celebrate({
     }),
     [Segments.HEADERS]: Joi.object({
         authorization: Joi.string().required()
-    })
+    }).unknown(),
 }), IncidentController.create)
 
 
