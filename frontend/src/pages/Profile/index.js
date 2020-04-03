@@ -45,8 +45,11 @@ export default function Profile() {
     }
   }
 
-    //Função para deletar a ONG
-    async function hendleDeleteOng() {
+  //Função para deletar a ONG
+  async function hendleDeleteOng() {
+
+    const confirm = window.confirm(`Tem certeza que realmente deseja deletar a ONG ${ongName} ?`)
+    if (confirm === true) {
       try {
         await api.delete(`profile/`, {
           headers: {
@@ -54,11 +57,16 @@ export default function Profile() {
           }
         })
 
+        alert('ONG deletada com sucesso, até mais :)')
         handleLogout()
       } catch (error) {
         alert('Erro ao tentar deletar a ONG')
       }
+    } else {
+      return
     }
+
+  }
 
   //Função para logout
   function handleLogout() {
