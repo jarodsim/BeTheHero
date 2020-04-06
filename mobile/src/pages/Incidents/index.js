@@ -34,7 +34,7 @@ export default function Incidents() {
       setLoading(true)
 
     setIncidents([...incidents, ...response.data])
-    setTotal(response.headers['x-total-count'] - 1)
+    setTotal(response.headers['x-total-count'] -1)
     setPage(page+1)
     setLoading(false)
   }
@@ -46,26 +46,32 @@ export default function Incidents() {
   return (
     <View style={styles.conatiner}>
       <View style={styles.header}>
+
         <Image source={logoImg}/>
+
         <Text style={styles.headerText}>
           Total de <Text style={styles.headerTextBold}>
              {total} casos</Text>.
         </Text>
+
       </View>
+
       <Text style={styles.title}>Bem Vindo</Text>
       <Text style={styles.description}>
         Escolha um dos casos abaixo e salve o dia
       </Text>
 
       <FlatList
-        style={styles.incidentList}
         data={incidents}
+        style={styles.incidentList}
         keyExtractor={incident => String(incident.id)}
         onEndReached={loadIncidents}
         onEndReachedThreshold={0.2}
         showsVerticalScrollIndicator={false}
         renderItem={({item: incident}) => (
+
         <View style={styles.incident}>
+
           <Text style={styles.incidentProperty}>ONG:</Text>
           <Text style={styles.incidentValue}>{incident.name}</Text>
           
@@ -75,12 +81,14 @@ export default function Incidents() {
           <Text style={styles.incidentProperty}>VALOR:</Text>
           <Text style={styles.incidentValue}>{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(incident.value)}</Text>
 
-          <TouchableOpacity style={styles.detailsButton} onPress={() => {navigationToDetail(incident)}}>
+          <TouchableOpacity style={styles.detailsButton} onPress={() => navigationToDetail(incident)}>
             <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
             <Feather name="arrow-right" size={16} color="#E02041"/>
           </TouchableOpacity>
         </View>
-      )}/>
+      )}
+
+      />
 
     </View>
   )
